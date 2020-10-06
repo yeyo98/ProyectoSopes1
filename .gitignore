@@ -1,3 +1,4 @@
+# ARCHIVOS QUE GENERA EL MODULO RAM
 ModuloRam/.moduloram.ko.cmd
 ModuloRam/.moduloram.mod.cmd
 ModuloRam/.moduloram.mod.o.cmd
@@ -9,3 +10,16 @@ ModuloRam/moduloram.mod
 ModuloRam/moduloram.mod.c
 ModuloRam/moduloram.mod.o
 ModuloRam/moduloram.o
+
+# ARCHIVOS QUE GENERA EL MODULO CPU
+ModuloCPU/.modulocpu.ko.cmd
+ModuloCPU/.modulocpu.mod.cmd
+ModuloCPU/.modulocpu.mod.o.cmd
+ModuloCPU/.modulocpu.o.cmd
+ModuloCPU/Module.symvers
+ModuloCPU/modules.order
+ModuloCPU/modulocpu.ko
+ModuloCPU/modulocpu.mod
+ModuloCPU/modulocpu.mod.c
+ModuloCPU/modulocpu.mod.o
+ModuloCPU/modulocpu.o
