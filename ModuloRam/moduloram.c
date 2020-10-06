@@ -32,7 +32,7 @@ extern unsigned long total_swapcache_pages(void);
 static int my_proc_show(struct seq_file *m, void *v){
 	//seq_print(m, "Hola Mundo :)\n");
     struct sysinfo i;
-    unsigned long totalRam, free, disponible, buffer, total;
+    unsigned long totalRam, free, buffer, total;
 	long cached;
 
     si_meminfo(&i);
@@ -49,7 +49,7 @@ static int my_proc_show(struct seq_file *m, void *v){
     buffer = i.bufferram << (PAGE_SHIFT - 10);
     // CALCULO DE LA MEMORIA USADA
     total = totalRam - ( free + buffer + cached );
-    total = (total/totalRam) * 100
+    total = (total/totalRam) * 100;
     seq_printf(m, "<h1>Total Ram: %lu, Libre: %lu, Cached:%ld, Buffer:%lu, Total:%lu </h1>\n",
                         totalRam,free,cached,buffer,total);
 
