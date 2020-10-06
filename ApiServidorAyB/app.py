@@ -17,7 +17,7 @@ def ObtenerRam():
     total = totalram - ( free + buffer + cached )
     total = ( total/totalram ) *100
 
-    return '<h1>'+total+'/<h1>'
+    return '<h1>'+ str(total)+'/<h1>'
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
 if __name__ == '__main__':
