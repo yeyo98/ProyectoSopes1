@@ -48,8 +48,8 @@ static int my_proc_show(struct seq_file *m, void *v){
     cached = cached << (PAGE_SHIFT - 10);
     buffer = i.bufferram << (PAGE_SHIFT - 10);
     // CALCULO DE LA MEMORIA USADA
-    total = free + buffer + cached 
-	total = totalRam - total
+    total = free + buffer + cached; 
+	total = totalRam - total;
     total = (total/totalRam) * 100;
     seq_printf(m, "<h1>Total Ram: %lu, Libre: %lu, Cached:%ld, Buffer:%lu, Total:%lu </h1>\n",
                         totalRam,free,cached,buffer,total);
