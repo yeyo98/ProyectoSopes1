@@ -46,7 +46,7 @@ def ObtenerRamyCpu():
     buffer = int(valores[3])
 
     total = totalram - ( free + buffer + cached )
-    total = ( total/totalram ) *100
+    porcentajeRam = ( total/totalram ) *100
 
     fs = open('/elements/procs/cpu-module','r')
     info = fs.read()
@@ -58,7 +58,7 @@ def ObtenerRamyCpu():
     
     porcentaje = ( usage/total ) *100
 
-    return jsonify( {'ram': total, 'cpu': porcentaje} )
+    return jsonify( {'ram': porcentajeRam, 'cpu': porcentaje} )
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
 if __name__ == '__main__':
