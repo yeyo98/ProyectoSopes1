@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/usoram', methods=['GET'])
 def ObtenerRam():
     fs = open('/elements/procs/ram-module','r')
     info = fs.read()
@@ -18,6 +18,20 @@ def ObtenerRam():
     total = ( total/totalram ) *100
 
     return '<h1>'+ str(total)+'/<h1>'
+
+@app.route('/usocpu', methods=['GET'])
+def ObtenerCpu():
+    fs = open('/elements/procs/cpu-module','r')
+    info = fs.read()
+    fs.close()  # CIERRO CONEXION
+
+    valores = info.split(',')
+    usage = int(valores[0])
+    total = int(valores[1])
+    
+    porcentaje = ( usage/total ) *100
+
+    return '<h1>'+ str(porcentaje)+'/<h1>'
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
 if __name__ == '__main__':
