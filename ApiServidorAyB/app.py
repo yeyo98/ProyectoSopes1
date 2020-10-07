@@ -106,7 +106,7 @@ def getCitas():
             data.append( {'autor': documento['autor'], 'nota': documento['nota']} )
 
         client.close()
-        return data
+        return jsonify({'estado':200, 'arr': data})
     except:
         return jsonify( {'estado': 400, 'message': 'Hubo un error para ingresar la cita'} )
 
