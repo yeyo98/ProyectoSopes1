@@ -122,7 +122,7 @@ def cantidadCitas():
         coleccion = db['Citas']
         
         cont = coleccion.find({})
-        cant = cont.count_collection()
+        cant = cont.count()
         client.close()
         return jsonify({'estado':200, 'arr': cant})
     except:
