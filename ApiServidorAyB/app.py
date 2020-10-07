@@ -121,10 +121,10 @@ def cantidadCitas():
         db = client[creds.mongodb['db']]
         coleccion = db['Citas']
         
-        cont = coleccion.find({}).count_collection()
-
+        cont = coleccion.find({})
+        cant = cont.count_collection()
         client.close()
-        return jsonify({'estado':200, 'arr': cont})
+        return jsonify({'estado':200, 'arr': cant})
     except:
         return jsonify( {'estado': 400, 'message': 'Hubo un error para obtener la cantidad de cita'} )
 
