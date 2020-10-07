@@ -108,7 +108,25 @@ def getCitas():
         client.close()
         return jsonify({'estado':200, 'arr': data})
     except:
-        return jsonify( {'estado': 400, 'message': 'Hubo un error para ingresar la cita'} )
+        return jsonify( {'estado': 400, 'message': 'Hubo un error para recuperar las citas'} )
+
+@app.route('/cantidadCitas', methods=['GET'])
+def cantidadCitas():
+    try:
+        client = MongoClient(
+            creds.mongodb['host'], 
+            username = creds.mongodb['user'], 
+            password = creds.mongodb['passwd']
+        )
+        db = client[creds.mongodb['db']]
+        coleccion = db['Citas']
+        
+        cont = coleccion.find({}).count_collection()
+
+        client.close()
+        return jsonify({'estado':200, 'arr': cont})
+    except:
+        return jsonify( {'estado': 400, 'message': 'Hubo un error para obtener la cantidad de cita'} )
 
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
