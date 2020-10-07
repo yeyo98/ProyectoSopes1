@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+from pymongo import MongoClient
+
+import creds
 
 app = Flask(__name__)
 CORS(app)
@@ -61,6 +64,31 @@ def ObtenerRamyCpu():
     porcentaje = ( usage/total ) *100
 
     return jsonify( {'ram': porcentajeRam, 'cpu': porcentaje} )
+
+@app.route('/ingresarCita', methods=['POST'])
+def ingresarCita():
+    content = request.get_json()
+    autor = content['autor']
+    nota = content['nota']
+
+    try:
+        client = MongoClient(
+            creds.mongodb['host'], 
+            username = creds.mongodb['user'], 
+            password = creds.mongodb['passwd']
+        )
+        db = client[creds.mongodb['db']]
+        coleccion = db['Citas']
+        post = {'autor': autor, 'nota': nota}
+        
+        coleccion.insert(post)
+        client.close()
+        return jsonify( {'estado': 200, 'message': 'Se ingreso la cita correctamente'} )
+    except:
+        return jsonify( {'estado': 400, 'message': 'Hubo un error para ingresar la cita'} )
+
+
+
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
 if __name__ == '__main__':
