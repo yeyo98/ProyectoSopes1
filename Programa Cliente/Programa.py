@@ -20,9 +20,9 @@ def main():
             address = input('\tEscriba la direccion del balanceador\n\t')
         elif opcion == '3':
             fs = open('entrada.txt','r')
-            print( fs.read() )
+            print(fs.read())
         elif opcion == '4':
-            print('opcion 4')
+            text = "This is, a sample text. Some more text. $1,200 test."
         elif opcion == '5':
             continue
         else:
