@@ -87,7 +87,28 @@ def ingresarCita():
     except:
         return jsonify( {'estado': 400, 'message': 'Hubo un error para ingresar la cita'} )
 
+@app.route('/recuperarCitas', methods=['GET'])
+def getCitas():
+    #content = request.get_json()
+    #autor = content['autor']
+    #nota = content['nota']
+    try:
+        client = MongoClient(
+            creds.mongodb['host'], 
+            username = creds.mongodb['user'], 
+            password = creds.mongodb['passwd']
+        )
+        db = client[creds.mongodb['db']]
+        coleccion = db['Citas']
+        data = []
+        
+        for documento in coleccion.find({}):
+            data.append( {'autor': documento['autor'], 'nota': documento['nota']} )
 
+        client.close()
+        return data
+    except:
+        return jsonify( {'estado': 400, 'message': 'Hubo un error para ingresar la cita'} )
 
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
