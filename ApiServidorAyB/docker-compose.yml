@@ -1,0 +1,26 @@
+version: "3"
+services:
+    servidor:
+        container_name: servidorayb
+        restart: always
+        build: ./
+        ports: 
+            - "80:4000"
+        links: 
+            - mongo
+        volumes: 
+            - ./:/usr/src/app
+            - /proc/cpu-module:/elements/procs/cpu-module
+            - /proc/ram-module:/elements/procs/ram-module
+        logging: 
+            driver: none
+    
+    mongo:
+        container_name: MongoDB
+        image: mongo:latest
+        restart: always
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: diego
+            MONGO_INITDB_ROOT_PASSWORD: admin123
+        logging: 
+            driver: none
