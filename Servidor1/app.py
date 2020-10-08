@@ -33,11 +33,12 @@ def Balanceador():
     ip = rutas.routes['ipb'] if selectServer( datosA.json() , datosB.json() ) else rutas.routes['ipa']
     url = 'http://{}{}'.format( ip , rutas.routes['newnote'] )
     
+    response = None
     try:
-        post( url , data={'autor': autor, 'nota': nota} )
-        return jsonify( {'estado': 200, 'message': 'Se paso la cita correctamente'} )
+        response = post( url , data={'autor': autor, 'nota': nota} )
+        return response.json()
     except:
-        return jsonify( {'estado': 400, 'message': 'Hubo un error para pasar la cita'} )
+        return response.json()
 
 # false->serverA true->serverB
 def selectServer(serverA, serverB):
