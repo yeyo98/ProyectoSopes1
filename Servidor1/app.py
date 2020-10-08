@@ -29,8 +29,20 @@ def Balanceador():
 
     datosA = get(rutaA) # DATOS DEL SERVIDOR A
     datosB = get(rutaB) # DATOS DEL SERVIDOR B
+     
+    ip = ''
+    if selectServer(datosA,datosB):
+        ip = rutas.routes['ipb']
+    else:
+        ip = rutas.routes['ipa']
 
-    return datosA['estado']
+    url = 'http://{}{}'.format( ip , rutas.routes['newnote'] )
+    
+    try:
+        post( url , jsonify({'autor': autor, 'nota': nota}) )
+        return jsonify( {'estado': 200, 'message': 'Se paso la cita correctamente'} )
+    except:
+        return jsonify( {'estado': 400, 'message': 'Hubo un error para pasar la cita'} )
 
 # false->serverA true->serverB
 def selectServer(serverA, serverB):
