@@ -40,8 +40,9 @@ def ObtenerCpu():
 
     return '<h1>'+ str(porcentaje)+'/<h1>'
 
-@app.route('/usoram_cpu', methods=['GET'])
+@app.route('/serverFeature', methods=['GET'])
 def ObtenerRamyCpu():
+    # CALCULO EL % DE LA RAM
     fs = open('/elements/procs/ram-module','r')
     info = fs.read()
     fs.close()  # CIERRO CONEXION
@@ -55,6 +56,7 @@ def ObtenerRamyCpu():
     total = totalram - ( free + buffer + cached )
     porcentajeRam = ( total/totalram ) *100
 
+    # CALCULO EL % DE LA CPU
     fs = open('/elements/procs/cpu-module','r')
     info = fs.read()
     fs.close()  # CIERRO CONEXION
@@ -64,8 +66,19 @@ def ObtenerRamyCpu():
     total = int(valores[1])
     
     porcentaje = ( usage/total ) *100
-
-    return jsonify( {'ram': porcentajeRam, 'cpu': porcentaje} )
+    
+    # OBTENGO EL TAMAÑO DE LA DB
+    try:
+        Conexion()
+        db = client[creds.mongodb['db']]
+        coleccion = db['Citas']
+        
+        cont = coleccion.find({})
+        cant = cont.count()
+        client.close()
+        return jsonify({'estado':200, 'ram': porcentajeRam, 'cpu': porcentaje, 'cantidad': cant})
+    except:
+        return jsonify( {'estado': 400, 'message': 'Hubo un error para obtener las caracterisiticas'} )
 
 @app.route('/ingresarCita', methods=['POST'])
 def ingresarCita():
@@ -74,11 +87,7 @@ def ingresarCita():
     nota = content['nota']
 
     try:
-        client = MongoClient(
-            creds.mongodb['host'], 
-            username = creds.mongodb['user'], 
-            password = creds.mongodb['passwd']
-        )
+        Conexion()
         db = client[creds.mongodb['db']]
         coleccion = db['Citas']
         post = {'autor': autor, 'nota': nota}
@@ -95,11 +104,7 @@ def getCitas():
     #autor = content['autor']
     #nota = content['nota']
     try:
-        client = MongoClient(
-            creds.mongodb['host'], 
-            username = creds.mongodb['user'], 
-            password = creds.mongodb['passwd']
-        )
+        Conexion()
         db = client[creds.mongodb['db']]
         coleccion = db['Citas']
         data = []
