@@ -7,6 +7,8 @@ import creds
 app = Flask(__name__)
 CORS(app)
 
+client = None
+
 @app.route('/usoram', methods=['GET'])
 def ObtenerRam():
     fs = open('/elements/procs/ram-module','r')
@@ -113,21 +115,25 @@ def getCitas():
 @app.route('/cantidadCitas', methods=['GET'])
 def cantidadCitas():
     try:
-        client = MongoClient(
-            creds.mongodb['host'], 
-            username = creds.mongodb['user'], 
-            password = creds.mongodb['passwd']
-        )
+        Conexion()
         db = client[creds.mongodb['db']]
         coleccion = db['Citas']
         
         cont = coleccion.find({})
         cant = cont.count()
         client.close()
-        return jsonify({'estado':200, 'arr': cant})
+        return jsonify({'estado':200, 'cantidad': cant})
     except:
         return jsonify( {'estado': 400, 'message': 'Hubo un error para obtener la cantidad de cita'} )
 
+
+def Conexion():
+    global client
+    client = MongoClient(
+        creds.mongodb['host'], 
+        username = creds.mongodb['user'], 
+        password = creds.mongodb['passwd']
+    )
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
 if __name__ == '__main__':
