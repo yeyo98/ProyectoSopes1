@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from requests import get, post
 
+import json
 import rutas
 
 app = Flask(__name__)
@@ -35,7 +36,7 @@ def Balanceador():
     
     response = None
     try:
-        response = post( url , data={'autor': autor, 'nota': nota} )
+        response = post( url , data=json.dumps( {'autor': autor, 'nota': nota}) )
         return response.json()
     except:
         return response.json()
