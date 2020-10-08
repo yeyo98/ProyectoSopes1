@@ -34,7 +34,7 @@ def Balanceador():
     url = 'http://{}{}'.format( ip , rutas.routes['newnote'] )
     
     try:
-        post( url , data=jsonify({'autor': autor, 'nota': nota}) )
+        post( url , data={'autor': autor, 'nota': nota} )
         return jsonify( {'estado': 200, 'message': 'Se paso la cita correctamente'} )
     except:
         return jsonify( {'estado': 400, 'message': 'Hubo un error para pasar la cita'} )
