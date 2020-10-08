@@ -10,9 +10,12 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def prueba():
-    ruta = 'http://{}{}'.format(rutas.routes['ip'],rutas.routes['feature'])
-    result = get(ruta)
-    return result.json() 
+    rutaA = 'http://{}{}'.format(rutas.routes['ipa'],rutas.routes['feature'])
+    rutaB = 'http://{}{}'.format(rutas.routes['ipb'],rutas.routes['feature'])
+
+    datosA = get(rutaA)
+    datosB = get(rutaB)
+    return jsonify({'serveA':datosA.json(),'serveB':datosB.json()}) 
 
 # PARA CORRER EL ARCHIVO EN LA CONSOLA ES python app.py
 if __name__ == '__main__':

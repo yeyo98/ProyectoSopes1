@@ -23,3 +23,6 @@ ModuloCPU/modulocpu.mod
 ModuloCPU/modulocpu.mod.c
 ModuloCPU/modulocpu.mod.o
 ModuloCPU/modulocpu.o
+
+# CACHE APLICACION PYTHON
+Programa Cliente/__pycache__/
