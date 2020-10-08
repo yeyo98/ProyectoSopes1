@@ -38,7 +38,7 @@ def Balanceador():
     try:
         headers = {'content-type': 'application/json'}
         post( url , data=json.dumps( {'autor': autor, 'nota': nota}), headers=headers )
-        return jsonify( {'estado': 200, 'message': 'Se paso la cita correctamente', 'url': url} )
+        return jsonify( {'estado': 200, 'message': 'Se paso la cita correctamente'} )
     except:
         return jsonify( {'estado': 400, 'message': 'Hubo un error para pasar la cita'} )
 

@@ -1,5 +1,7 @@
 import random
 import nombre
+from requests import get, post
+import json
 
 route = ''
 address = ''
@@ -9,13 +11,13 @@ def main():
     opcion = ''
     #opcion = 0
     while opcion != '5' :
-        print('\n==================================================')
+        print('\n\t==================================================')
         print('\t1. Ingresar ruta')
         print('\t2. Ingresar direccion')
         print('\t3. Ver Datos')
         print('\t4. Enviar Datos')
         print('\t5. Salir')
-        print('==================================================')
+        print('\t==================================================')
         opcion = input('\tSeleccione una opcion:\n\t')
 
         if opcion == '1':
@@ -32,7 +34,7 @@ def main():
         elif opcion == '5':
             continue
         else:
-            print('Error!! Por favor escoja una opcion valida.')
+            print('\t *** Error!! Por favor escoja una opcion valida. ***')
         
 
 def AnalyzeFile():
@@ -46,7 +48,7 @@ def AnalyzeFile():
         for oracion in oraciones:
             numeroRandom = random.randrange(0,49)
             notas.append({'autor': nombre.Aleatorio[numeroRandom], 'nota': oracion})
-        print('\t El archivo fue leido y analizado correctamente :D')
+        print('\n\tEl archivo fue leido y analizado correctamente :D')
     except:
         print('\t *** ERROR!! Escriba una ruta valida para el archivo de entrada ***')
 
@@ -55,7 +57,19 @@ def ImprimirNotas():
         print(nota)
 
 def EnviarDatos():
-    return 0
+    if address == '':
+        print('\t *** Error!! Por favor escriba la direccion del balanceador. ***')
+        return
+    url = 'http://{}{}'.format( address , '/BalanceadorNotas' )
+    headers = {'content-type': 'application/json'}
+    for nota in notas:
+        try:
+            post( url , data=json.dumps( nota ), headers=headers )
+        except:
+            print('\t *** Error!! Al ingresar una nota. ***')
+            return
+
+    print('\n\tSe guardo todas las notas correctamente!! :D')
     
 
 # Llamo el metodo main
