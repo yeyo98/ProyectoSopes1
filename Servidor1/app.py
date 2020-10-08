@@ -29,13 +29,8 @@ def Balanceador():
 
     datosA = get(rutaA) # DATOS DEL SERVIDOR A
     datosB = get(rutaB) # DATOS DEL SERVIDOR B
-     
-    ip = ''
-    if selectServer(datosA,datosB):
-        ip = rutas.routes['ipb']
-    else:
-        ip = rutas.routes['ipa']
-
+    
+    ip = rutas.routes['ipb'] if selectServer( datosA.json() , datosB.json() ) else rutas.routes['ipa']
     url = 'http://{}{}'.format( ip , rutas.routes['newnote'] )
     
     try:
