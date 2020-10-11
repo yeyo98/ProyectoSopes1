@@ -26,3 +26,8 @@ ModuloCPU/modulocpu.o
 
 # CACHE APLICACION PYTHON
 Programa Cliente/__pycache__/
+
+# PAGINA WEB
+pagina-web/node_modules
+node_modules
+package-lock.json

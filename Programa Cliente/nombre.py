@@ -47,5 +47,15 @@ Aleatorio = ['Fermin',
             'Regina',
             'Denis',
             'Iban',
-            'Jacinta'
+            'Jacinta',
+            'Abigail',
+            'Diego',
+            'Mauricio',
+            'Miriam',
+            'Marcel',
+            'Marcela',
+            'Dulce',
+            'Paul',
+            'Paola',
+            'Tania'
             ]
