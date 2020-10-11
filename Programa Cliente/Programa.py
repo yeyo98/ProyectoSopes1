@@ -48,7 +48,7 @@ def AnalyzeFile():
         for oracion in oraciones:
             if oracion == '':
                 continue
-            numeroRandom = random.randrange(0,nombre.Aleatorio.length()-1)
+            numeroRandom = random.randrange(0,len(nombre.Aleatorio)-1)
             notas.append({'autor': nombre.Aleatorio[numeroRandom], 'nota': oracion})
         print('\n\tEl archivo fue leido y analizado correctamente :D')
     except:
